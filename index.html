@@ -65,6 +65,19 @@
                 }
                 // *****************************************************************************************
 
+                // Sign Message
+                try {
+                    let timeStamp = Date.now();
+                    let message = `Hi there from the NFT Club! Sign this message to prove you own this wallet and we'll log you in. This won't cost you any Ether. \n \n Timestamp: ${timeStamp}`;
+                    let signature = await web3.eth.personal.sign(message, currentAccount);
+                    console.log("Signature: ", signature);
+                    let verifySignature = await web3.eth.personal.ecRecover(message, signature);
+                    console.log("Verify Signature: ", verifySignature);
+                } catch (error) {
+                    console.log(error);
+                }
+                // *****************************************************************************************
+
                 // Change Network to Ethereum Mainnet
                 try {
                     let checkChain = await window.ethereum.request({ method: "wallet_switchEthereumChain", params: [{ chainId: '0x1' }] });
